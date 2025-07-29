@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ibank/auth/sign_in/sign_in_screen.dart';
 import 'package:ibank/core/ui/theme.dart';
-import 'package:ibank/core/ui/util.dart';
+import 'package:ibank/core/ui/ui_util.dart';
 
 void main() {
   runApp(const MyApp());

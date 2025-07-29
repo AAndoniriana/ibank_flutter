@@ -80,7 +80,7 @@ class SignInScreen extends StatelessWidget {
                     suffixIcon: GestureDetector(
                       onTap: () {},
                       child: Icon(
-                        Icons.remove_red_eye_rounded,
+                        Icons.visibility,
                         color: colorScheme.onSurface,
                       ),
                     ),

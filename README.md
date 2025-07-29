@@ -1,16 +1,6 @@
 # ibank
 
-Banking app.
+Online banking app using flutter.
 
-## Getting Started
+The template was found on this [figma link](https://www.figma.com/design/Aeq7IAJZRMTiEUU5QRqTy6/iBank---Banking---E-Money-Management-App-%7C-FinPay-%7C-Digital-%7C-Finance-Mobile-Banking-App-Ui-Kit--Community-?node-id=54-21278&t=nl8PZmIbbMerbEdh-0)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

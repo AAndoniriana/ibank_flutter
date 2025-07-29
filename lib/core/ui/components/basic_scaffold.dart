@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ibank/core/ui/design_system/ibank_app_bar.dart';
+import 'package:ibank/core/ui/ui_util.dart';
 
 class BasicScaffold extends StatelessWidget {
   const BasicScaffold({super.key, required this.body, required this.title});
@@ -18,18 +19,9 @@ class BasicScaffold extends StatelessWidget {
           style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600),
         ),
         iconColor: colorScheme.onSurface,
-        onBackPressed: getBackPressedFunction(context),
+        onBackPressed: backFunction(context),
       ),
       body: body,
     );
-  }
-
-  void Function()? getBackPressedFunction(BuildContext context) {
-    if (Navigator.of(context).canPop()) {
-      return () {
-        Navigator.of(context).pop();
-      };
-    }
-    return null;
   }
 }
