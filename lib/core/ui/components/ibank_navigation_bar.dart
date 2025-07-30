@@ -114,7 +114,13 @@ class _NavigationItem extends StatelessWidget {
     } else {
       content = icon;
     }
-    return content;
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 150),
+      transitionBuilder: (child, animation) {
+        return ScaleTransition(scale: animation, child: child);
+      },
+      child: content,
+    );
   }
 }
 
