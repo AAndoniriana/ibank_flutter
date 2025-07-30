@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class IBankCheckbox extends StatelessWidget {
   const IBankCheckbox({
     super.key,
-    this.value,
+    required this.value,
     required this.onChanged,
     this.scale = 1.5,
     this.tristate = false,

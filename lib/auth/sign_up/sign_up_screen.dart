@@ -1,28 +1,27 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:ibank/auth/password_recovery/forgot_password_screen.dart';
-import 'package:ibank/auth/sign_up/sign_up_screen.dart';
+import 'package:ibank/auth/sign_in/sign_in_screen.dart';
 import 'package:ibank/core/ui/design_system/ibank_app_bar.dart';
 import 'package:ibank/core/ui/design_system/ibank_button.dart';
+import 'package:ibank/core/ui/design_system/ibank_checkbox.dart';
 import 'package:ibank/core/ui/design_system/ibank_input.dart';
 import 'package:ibank/core/ui/ui_util.dart';
 
-class SignInScreen extends StatelessWidget {
-  const SignInScreen({super.key});
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-    var colorScheme = theme.colorScheme;
+    var colorScheme = Theme.of(context).colorScheme;
+    var textTheme = Theme.of(context).textTheme;
     return Scaffold(
       backgroundColor: colorScheme.primary,
       appBar: IBankAppBar.withBackButton(
         iconColor: Colors.white,
         onBackPressed: backFunction(context),
         content: Text(
-          'Sign in',
-          style: theme.textTheme.titleMedium?.copyWith(
+          'Sign up',
+          style: textTheme.titleMedium?.copyWith(
             fontSize: 28,
             color: Colors.white,
             fontWeight: FontWeight.w600,
@@ -43,7 +42,7 @@ class SignInScreen extends StatelessWidget {
           padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 24.0),
           child: SingleChildScrollView(
             child: Column(
-              spacing: 32,
+              spacing: 20,
               children: [
                 Align(
                   alignment: Alignment.topLeft,
@@ -51,16 +50,16 @@ class SignInScreen extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: 'Welcome back',
-                          style: theme.textTheme.titleLarge?.copyWith(
+                          text: 'Welcome to us',
+                          style: textTheme.titleLarge?.copyWith(
                             color: colorScheme.primary,
                             fontSize: 24.0,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                         TextSpan(
-                          text: '\nHello there, sign in to continue',
-                          style: theme.textTheme.bodySmall?.copyWith(
+                          text: '\nHello there, create a new account',
+                          style: textTheme.bodySmall?.copyWith(
                             fontSize: 12.0,
                             color: colorScheme.onSurface,
                             fontWeight: FontWeight.w500,
@@ -70,10 +69,18 @@ class SignInScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Image.asset('assets/images/lock.png', fit: BoxFit.cover),
+                Image.asset('assets/images/phone.png', fit: BoxFit.cover),
                 const IBankInput(
-                  decoration: InputDecoration(hintText: 'Email'),
+                  decoration: InputDecoration(hintText: 'Name'),
                   keyboardType: TextInputType.emailAddress,
+                ),
+                IBankInput(
+                  decoration: InputDecoration(
+                    hintText: 'Phone number',
+                    prefixText: '(+84)',
+                    prefixStyle: textTheme.labelMedium,
+                  ),
+                  keyboardType: TextInputType.phone,
                 ),
                 IBankInput(
                   obscureText: true,
@@ -89,39 +96,47 @@ class SignInScreen extends StatelessWidget {
                   ),
                   keyboardType: TextInputType.visiblePassword,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const ForgotPasswordScreen(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: Row(
+                    spacing: 8,
+                    children: [
+                      IBankCheckbox(value: false, onChanged: (value) {}),
+                      Flexible(
+                        child: RichText(
+                          maxLines: 2,
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text:
+                                    'By creating an account your agree to our ',
+                                style: textTheme.labelMedium,
+                              ),
+                              TextSpan(
+                                text: 'Term and Conditions',
+                                style: textTheme.labelMedium?.copyWith(
+                                  color: colorScheme.primary,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                    );
-                  },
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: Text(
-                      'Forgot your password ?',
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: colorScheme.onSurface.withAlpha(128),
-                      ),
-                    ),
+                    ],
                   ),
                 ),
-                IBankButton(text: 'Sign in', onPressed: () {}),
-                GestureDetector(
-                  onTap: () {},
-                  child: SvgPicture.asset('assets/icons/fingerprint.svg'),
-                ),
+                IBankButton(text: 'Sign up', onPressed: () {}),
                 RichText(
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: 'Don\'t have an account? ',
-                        style: theme.textTheme.bodyMedium,
+                        text: 'Have an account? ',
+                        style: textTheme.bodyMedium,
                       ),
                       TextSpan(
                         text: ' Sign Up',
-                        style: theme.textTheme.bodyMedium?.copyWith(
+                        style: textTheme.bodyMedium?.copyWith(
                           color: colorScheme.primary,
                         ),
                         recognizer: TapGestureRecognizer()
@@ -129,7 +144,7 @@ class SignInScreen extends StatelessWidget {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return const SignUpScreen();
+                                  return const SignInScreen();
                                 },
                               ),
                             );
