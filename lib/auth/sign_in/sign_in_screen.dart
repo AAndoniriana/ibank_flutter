@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ibank/auth/home/home_screen.dart';
 import 'package:ibank/auth/password_recovery/forgot_password_screen.dart';
 import 'package:ibank/auth/sign_up/sign_up_screen.dart';
 import 'package:ibank/core/ui/design_system/ibank_app_bar.dart';
@@ -33,7 +34,7 @@ class SignInScreen extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
-          color: colorScheme.surface,
+          color: colorScheme.surfaceContainerHigh,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(28),
             topRight: Radius.circular(28),
@@ -107,7 +108,17 @@ class SignInScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                IBankButton(text: 'Sign in', onPressed: () {}),
+                IBankButton(
+                  text: 'Sign in',
+                  onPressed: () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => const HomeScreen(),
+                      ),
+                      (_) => false,
+                    );
+                  },
+                ),
                 GestureDetector(
                   onTap: () {},
                   child: SvgPicture.asset('assets/icons/fingerprint.svg'),

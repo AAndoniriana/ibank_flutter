@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:ibank/auth/home/home_screen.dart';
 import 'package:ibank/auth/sign_in/sign_in_screen.dart';
 import 'package:ibank/core/ui/design_system/ibank_app_bar.dart';
 import 'package:ibank/core/ui/design_system/ibank_button.dart';
@@ -32,7 +33,7 @@ class SignUpScreen extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
-          color: colorScheme.surface,
+          color: colorScheme.surfaceContainerHigh,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(28),
             topRight: Radius.circular(28),
@@ -126,7 +127,17 @@ class SignUpScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                IBankButton(text: 'Sign up', onPressed: () {}),
+                IBankButton(
+                  text: 'Sign up',
+                  onPressed: () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => const HomeScreen(),
+                      ),
+                      (_) => false,
+                    );
+                  },
+                ),
                 RichText(
                   text: TextSpan(
                     children: [
