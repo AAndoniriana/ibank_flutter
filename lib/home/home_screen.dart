@@ -71,12 +71,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       .entries
                       .map((entry) {
                         int index = entry.key;
-                        double offset = (index) * 10.0;
+                        double verticalOffset = index * 10.0;
+                        double horizontalOffset = index * 20.0;
                         return AnimatedPositioned(
                           duration: const Duration(milliseconds: 200),
-                          top: offset,
-                          left: offset,
-                          right: offset,
+                          top: verticalOffset,
+                          left: horizontalOffset,
+                          right: horizontalOffset,
                           child: Dismissible(
                             key: UniqueKey(),
                             direction: DismissDirection.up,
