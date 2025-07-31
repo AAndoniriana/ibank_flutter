@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ibank/core/ui/components/credit_card.dart';
 import 'package:ibank/core/ui/components/ibank_navigation_bar.dart';
 import 'package:ibank/core/ui/design_system/ibank_app_bar.dart';
 import 'package:ibank/home/components/card_menu.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final List<Color> _cards = [
+    const Color(0xFF3629B7),
+    const Color(0xFFFF4267),
+    const Color(0xFF5655B9),
+  ];
   @override
   Widget build(BuildContext context) {
     var colorScheme = Theme.of(context).colorScheme;
@@ -47,13 +58,50 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.only(top: 20.0, left: 16.0, right: 16.0),
           child: Column(
+            spacing: 8,
             children: [
+              SizedBox(
+                height: 240,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: _cards
+                      .asMap()
+                      .entries
+                      .map((entry) {
+                        int index = entry.key;
+                        double offset = (index) * 10.0;
+                        return AnimatedPositioned(
+                          duration: const Duration(milliseconds: 200),
+                          top: offset,
+                          left: offset,
+                          right: offset,
+                          child: Dismissible(
+                            key: UniqueKey(),
+                            direction: DismissDirection.up,
+                            onDismissed: (direction) {
+                              setState(() {
+                                final dismissedCard = _cards.removeAt(index);
+                                _cards.add(dismissedCard);
+                              });
+                            },
+                            child: CreditCard(backgroundColor: entry.value),
+                          ),
+                        );
+                      })
+                      .toList()
+                      .reversed
+                      .toList(),
+                ),
+              ),
               Expanded(
                 child: GridView.count(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
                   crossAxisCount: 3,
                   mainAxisSpacing: 8.0,
+                  crossAxisSpacing: 8.0,
                   children: menus,
                 ),
               ),
