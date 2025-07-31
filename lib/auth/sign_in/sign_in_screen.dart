@@ -1,13 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ibank/auth/home/home_screen.dart';
 import 'package:ibank/auth/password_recovery/forgot_password_screen.dart';
 import 'package:ibank/auth/sign_up/sign_up_screen.dart';
 import 'package:ibank/core/ui/design_system/ibank_app_bar.dart';
 import 'package:ibank/core/ui/design_system/ibank_button.dart';
 import 'package:ibank/core/ui/design_system/ibank_input.dart';
 import 'package:ibank/core/ui/ui_util.dart';
+import 'package:ibank/home/home_screen.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -34,7 +34,7 @@ class SignInScreen extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
-          color: colorScheme.surfaceContainerHigh,
+          color: colorScheme.surfaceContainer,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(28),
             topRight: Radius.circular(28),
