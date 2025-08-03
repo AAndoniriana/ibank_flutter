@@ -38,7 +38,7 @@ class _IBankNavigationBarState extends State<IBankNavigationBar> {
     var colorScheme = Theme.of(context).colorScheme;
     return Container(
       width: double.infinity,
-      height: 120,
+      height: 100,
       color: colorScheme.surfaceContainerLowest,
       child: SafeArea(
         child: Row(

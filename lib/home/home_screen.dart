@@ -18,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
     const Color(0xFFFF4267),
     const Color(0xFF5655B9),
   ];
+
   @override
   Widget build(BuildContext context) {
     var colorScheme = Theme.of(context).colorScheme;
@@ -25,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: colorScheme.primary,
       appBar: IBankAppBar(
+        backgroundColor: colorScheme.primary,
         content: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
           child: Text(
@@ -60,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Padding(
           padding: const EdgeInsets.only(top: 20.0, left: 16.0, right: 16.0),
           child: Column(
-            spacing: 8,
+            spacing: 4,
             children: [
               SizedBox(
                 height: 240,
