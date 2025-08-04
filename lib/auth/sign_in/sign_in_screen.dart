@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ibank/auth/password_recovery/forgot_password_screen.dart';
-import 'package:ibank/auth/sign_in/sign_in_bloc.dart';
+import 'package:ibank/auth/sign_in/sign_in_cubit.dart';
 import 'package:ibank/auth/sign_up/sign_up_screen.dart';
 import 'package:ibank/core/ui/design_system/ibank_app_bar.dart';
 import 'package:ibank/core/ui/design_system/ibank_button.dart';
@@ -45,8 +45,8 @@ class SignInScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 24.0),
           child: SingleChildScrollView(
-            child: BlocBuilder<SignInBloc, SignInState>(
-              builder: (context, state) {
+            child: BlocBuilder<SignInCubit, bool>(
+              builder: (context, isPasswordDisplayed) {
                 return Column(
                   spacing: 32,
                   children: [
@@ -81,17 +81,17 @@ class SignInScreen extends StatelessWidget {
                       keyboardType: TextInputType.emailAddress,
                     ),
                     IBankInput(
-                      obscureText: !state.isPasswordDisplayed,
+                      obscureText: !isPasswordDisplayed,
                       decoration: InputDecoration(
                         hintText: 'Password',
                         suffixIcon: GestureDetector(
                           onTap: () {
-                            context.read<SignInBloc>().add(
-                              SignInTogglePassword(),
-                            );
+                            BlocProvider.of<SignInCubit>(
+                              context,
+                            ).togglePasswordVisibility();
                           },
                           child: Icon(
-                            state.isPasswordDisplayed
+                            isPasswordDisplayed
                                 ? Icons.visibility_off
                                 : Icons.visibility,
                             color: colorScheme.onSurface,

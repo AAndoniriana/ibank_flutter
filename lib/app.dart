@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ibank/auth/sign_in/sign_in_cubit.dart';
 import 'package:ibank/auth/sign_in/sign_in_screen.dart';
 import 'package:ibank/core/ui/theme.dart';
 import 'package:ibank/core/ui/ui_util.dart';
-
-import 'auth/sign_in/sign_in_bloc.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -22,9 +21,7 @@ class App extends StatelessWidget {
       primary: primaryColor,
     );
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(lazy: true, create: (_) => SignInBloc(SignInState())),
-      ],
+      providers: [BlocProvider(lazy: true, create: (_) => SignInCubit())],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: brightness == Brightness.light
