@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ibank/core/ui/components/credit_card.dart';
-import 'package:ibank/core/ui/components/ibank_navigation_bar.dart';
+import 'package:ibank/core/ui/components/navbar/ibank_navigation_bar.dart';
 import 'package:ibank/core/ui/design_system/ibank_app_bar.dart';
 import 'package:ibank/home/components/card_menu.dart';
 

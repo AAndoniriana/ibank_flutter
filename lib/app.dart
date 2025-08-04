@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ibank/auth/sign_in/sign_in_cubit.dart';
 import 'package:ibank/auth/sign_in/sign_in_screen.dart';
+import 'package:ibank/core/ui/components/navbar/navbar_cubit.dart';
 import 'package:ibank/core/ui/theme.dart';
 import 'package:ibank/core/ui/ui_util.dart';
 
@@ -21,7 +22,10 @@ class App extends StatelessWidget {
       primary: primaryColor,
     );
     return MultiBlocProvider(
-      providers: [BlocProvider(lazy: true, create: (_) => SignInCubit())],
+      providers: [
+        BlocProvider(create: (_) => SignInCubit()),
+        BlocProvider(lazy: false, create: (_) => NavbarCubit()),
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: brightness == Brightness.light
