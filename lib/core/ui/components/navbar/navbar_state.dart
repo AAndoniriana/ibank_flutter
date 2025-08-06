@@ -47,8 +47,3 @@ class NavigationItemModel {
   final IconData selectedIcon;
   final String label;
 }
-
-@immutable
-sealed class NavbarState {}
-
-final class NavbarInitial extends NavbarState {}

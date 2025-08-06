@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ibank/core/ui/components/navbar/navbar_cubit.dart';
 
 class IBankNavigationBar extends StatelessWidget {
-  const IBankNavigationBar({super.key});
+  const IBankNavigationBar({super.key, this.onDestinationSelected});
+
+  final void Function(int)? onDestinationSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class IBankNavigationBar extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       BlocProvider.of<NavbarCubit>(context).changeIndex(index);
+                      onDestinationSelected?.call(index);
                     },
                     child: _NavigationItem(
                       icon: Icon(
