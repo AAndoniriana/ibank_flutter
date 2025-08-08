@@ -24,7 +24,7 @@ class NavigationBarState {
     NavigationItemModel(
       selectedIcon: Icons.mail_rounded,
       icon: Icons.mail_outline_rounded,
-      label: 'Mail',
+      label: 'Message',
     ),
     NavigationItemModel(
       selectedIcon: Icons.settings_rounded,
