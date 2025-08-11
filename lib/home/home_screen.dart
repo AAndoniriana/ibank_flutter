@@ -3,6 +3,7 @@ import 'package:ibank/core/ui/components/navbar/ibank_navigation_bar.dart';
 import 'package:ibank/home/components/dashboard/dashboard.dart';
 import 'package:ibank/home/components/message/message_list.dart';
 import 'package:ibank/home/components/search/search.dart';
+import 'package:ibank/home/components/settings/settings.dart';
 import 'package:ibank/home/models/home_screen_model.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -33,6 +34,11 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: const MessageListAppBar(),
         body: const MessageList(),
         backgroundColor: colorScheme.surfaceContainer,
+      ),
+      HomeScreenModel(
+        appBar: const SettingsAppBar(),
+        body: const Settings(),
+        backgroundColor: colorScheme.primary,
       ),
     ];
 
