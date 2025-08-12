@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ibank/core/ui/design_system/ibank_app_bar.dart';
+import 'package:ibank/search/branch/branch_screen.dart';
 
 class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
   const SearchAppBar({super.key});
@@ -41,7 +42,11 @@ class Search extends StatelessWidget {
               title: 'Branch',
               description: 'Search for a branch',
               imagePath: 'assets/images/bank.png',
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const BranchScreen()),
+                );
+              },
             ),
             _SearchCard(
               title: 'Interest rate',
