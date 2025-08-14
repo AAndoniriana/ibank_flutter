@@ -3,10 +3,16 @@ import 'package:ibank/core/ui/design_system/ibank_app_bar.dart';
 import 'package:ibank/core/ui/ui_util.dart';
 
 class BasicScaffold extends StatelessWidget {
-  const BasicScaffold({super.key, required this.body, required this.title});
+  const BasicScaffold({
+    super.key,
+    required this.body,
+    required this.title,
+    this.bottomSheet,
+  });
 
   final Widget body;
   final String title;
+  final Widget? bottomSheet;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +28,7 @@ class BasicScaffold extends StatelessWidget {
         onBackPressed: backFunction(context),
       ),
       body: body,
+      bottomSheet: bottomSheet,
     );
   }
 }
