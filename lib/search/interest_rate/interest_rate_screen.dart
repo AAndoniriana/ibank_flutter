@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ibank/core/ui/components/basic_scaffold.dart';
-
-import 'models/interest_rate_model.dart';
+import 'package:ibank/search/interest_rate/models/interest_rate_model.dart';
 
 class InterestRateScreen extends StatelessWidget {
   const InterestRateScreen({super.key});
@@ -23,36 +22,91 @@ class InterestRateScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: DataTable(
-            dividerThickness: 1,
-            columnSpacing: 28,
-            horizontalMargin: 0,
-
-            columns: [
-              DataColumn(label: Text('Interest kind', style: headingStyle)),
-              DataColumn(
-                label: Text('Deposit', style: headingStyle),
-                numeric: true,
-              ),
-              DataColumn(
-                label: Text('Rate', style: headingStyle),
-                numeric: true,
-              ),
-            ],
-            rows: interestRates.map((interestRate) {
-              return DataRow(
-                cells: [
-                  DataCell(Text(interestRate.interestKind, style: bodyStyle)),
-                  DataCell(Text(interestRate.deposit, style: bodyStyle)),
-                  DataCell(
-                    Text(
-                      interestRate.rate,
-                      style: bodyStyle?.copyWith(color: colorScheme.primary),
+          child: SizedBox(
+            width: double.infinity,
+            child: Table(
+              columnWidths: {
+                0: FlexColumnWidth(),
+                1: IntrinsicColumnWidth(),
+                2: IntrinsicColumnWidth(),
+              },
+              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+              children: [
+                TableRow(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                        vertical: 8.0,
+                      ),
+                      child: Text('Interest kind', style: headingStyle),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                        vertical: 8.0,
+                      ),
+                      child: Text('Deposit', style: headingStyle),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                        vertical: 8.0,
+                      ),
+                      child: Text('Rate', style: headingStyle),
+                    ),
+                  ],
+                ),
+                for (var interestRate in interestRates)
+                  TableRow(
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          width: 1.0,
+                          color: colorScheme.outline.withAlpha(72),
+                        ),
+                      ),
+                    ),
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 16.0,
+                        ),
+                        child: Text(
+                          interestRate.interestKind,
+                          style: bodyStyle,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 16.0,
+                        ),
+                        child: Text(
+                          interestRate.deposit,
+                          textAlign: TextAlign.right,
+                          style: bodyStyle,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 16.0,
+                        ),
+                        child: Text(
+                          interestRate.rate,
+                          textAlign: TextAlign.right,
+                          style: bodyStyle?.copyWith(
+                            fontWeight: FontWeight.w500,
+                            color: colorScheme.primary,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              );
-            }).toList(),
+              ],
+            ),
           ),
         ),
       ),
