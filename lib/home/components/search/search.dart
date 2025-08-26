@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ibank/core/ui/design_system/ibank_app_bar.dart';
 import 'package:ibank/search/branch/branch_screen.dart';
+import 'package:ibank/search/exchange_rate/exchange_rate_screen.dart';
 import 'package:ibank/search/interest_rate/interest_rate_screen.dart';
 
 class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -65,7 +66,13 @@ class Search extends StatelessWidget {
               title: 'Exchange rate',
               description: 'Search for exchange rate',
               imagePath: 'assets/images/exchange_rate.png',
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ExchangeRateScreen(),
+                  ),
+                );
+              },
             ),
             _SearchCard(
               title: 'Exchange',
