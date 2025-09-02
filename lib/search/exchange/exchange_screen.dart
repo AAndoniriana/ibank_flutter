@@ -2,32 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:ibank/core/ui/components/basic_scaffold.dart';
 import 'package:ibank/core/ui/design_system/ibank_button.dart';
 import 'package:ibank/core/ui/design_system/ibank_input.dart';
+import 'package:ibank/search/exchange/models/currency.dart';
 
 class ExchangeScreen extends StatelessWidget {
   const ExchangeScreen({super.key});
-
-  final List<String> _currencies = const [
-    'USD',
-    'EUR',
-    'JPY',
-    'GBP',
-    'AUD',
-    'CAD',
-    'CHF',
-    'CNY',
-    'SEK',
-    'NZD',
-    'MXN',
-    'SGD',
-    'HKD',
-    'NOK',
-    'KRW',
-    'TRY',
-    'RUB',
-    'INR',
-    'BRL',
-    'ZAR',
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +39,7 @@ class ExchangeScreen extends StatelessWidget {
                     spacing: 8.0,
                     children: [
                       _CurrencyInput(
-                        currencies: _currencies,
+                        currencies: currencies,
                         onChanged: (value, currency) {},
                       ),
                       Padding(
@@ -69,7 +47,7 @@ class ExchangeScreen extends StatelessWidget {
                         child: Image.asset('assets/images/arrow.png'),
                       ),
                       _CurrencyInput(
-                        currencies: _currencies,
+                        currencies: currencies,
                         onChanged: (value, currency) {},
                       ),
                       Row(
@@ -101,15 +79,16 @@ class ExchangeScreen extends StatelessWidget {
 class _CurrencyInput extends StatefulWidget {
   const _CurrencyInput({required this.currencies, this.onChanged});
 
-  final List<String> currencies;
-  final void Function(String value, String currency)? onChanged;
+  final List<Currency> currencies;
+  final void Function(String value, Currency currency)? onChanged;
 
   @override
   State<_CurrencyInput> createState() => _CurrencyInputState();
 }
 
 class _CurrencyInputState extends State<_CurrencyInput> {
-  late String _selectedItem = widget.currencies.first;
+  late Currency _selectedItem = widget.currencies.first;
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -127,28 +106,126 @@ class _CurrencyInputState extends State<_CurrencyInput> {
           spacing: 4.0,
           children: [
             Container(color: colorScheme.outline, height: 32.0, width: 1.0),
-            PopupMenuButton(
-              icon: Row(
+            GestureDetector(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => _CurrencyPicker(
+                    selectedIndex: _selectedIndex,
+                    currencies: widget.currencies,
+                    onSelected: (selectedIndex) {
+                      setState(() {
+                        _selectedIndex = selectedIndex;
+                        _selectedItem = widget.currencies[selectedIndex];
+                      });
+                    },
+                  ),
+                );
+              },
+              child: Row(
                 mainAxisSize: MainAxisSize.min,
                 spacing: 4.0,
                 children: [
-                  Text(_selectedItem, style: textTheme.bodyMedium),
-                  Icon(Icons.unfold_more),
+                  Text(_selectedItem.code, style: textTheme.bodyMedium),
+                  Icon(Icons.unfold_more, color: colorScheme.outline),
                 ],
               ),
-              onSelected: (item) {
-                setState(() {
-                  _selectedItem = item;
-                });
-              },
-              itemBuilder: (context) {
-                return widget.currencies
-                    .map(
-                      (currency) =>
-                          PopupMenuItem(value: currency, child: Text(currency)),
-                    )
-                    .toList();
-              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CurrencyPicker extends StatefulWidget {
+  const _CurrencyPicker({
+    required this.currencies,
+    required this.onSelected,
+    this.selectedIndex = 0,
+  });
+
+  final List<Currency> currencies;
+  final void Function(int) onSelected;
+  final int selectedIndex;
+
+  @override
+  State<_CurrencyPicker> createState() => _CurrencyPickerState();
+}
+
+class _CurrencyPickerState extends State<_CurrencyPicker> {
+  @override
+  Widget build(BuildContext context) {
+    var colorScheme = Theme.of(context).colorScheme;
+    var textTheme = Theme.of(context).textTheme;
+
+    return Dialog(
+      backgroundColor: colorScheme.surface,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Icon(Icons.close, color: colorScheme.outline),
+              ),
+            ),
+            Align(
+              alignment: Alignment.topCenter,
+              child: Column(
+                spacing: 24.0,
+                children: [
+                  Text(
+                    'Select currency',
+                    style: textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView.separated(
+                      itemCount: widget.currencies.length,
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 12.0),
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            widget.onSelected(index);
+                            Navigator.pop(context);
+                          },
+                          child: Row(
+                            spacing: 8.0,
+                            children: [
+                              Text(
+                                widget.currencies[index].code,
+                                style: textTheme.bodyLarge?.copyWith(
+                                  color: index == widget.selectedIndex
+                                      ? colorScheme.primary
+                                      : colorScheme.outline,
+                                ),
+                              ),
+                              Text(
+                                '(${widget.currencies[index].label})',
+                                style: textTheme.bodyLarge?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: index == widget.selectedIndex
+                                      ? colorScheme.primary
+                                      : colorScheme.outline,
+                                ),
+                              ),
+                              const Spacer(),
+                              if (index == widget.selectedIndex)
+                                Icon(Icons.check, color: colorScheme.primary),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
