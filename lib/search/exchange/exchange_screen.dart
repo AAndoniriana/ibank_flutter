@@ -101,37 +101,31 @@ class _CurrencyInputState extends State<_CurrencyInput> {
       },
       decoration: InputDecoration(
         hintText: 'Amount',
-        suffixIcon: Row(
-          mainAxisSize: MainAxisSize.min,
-          spacing: 4.0,
-          children: [
-            Container(color: colorScheme.outline, height: 32.0, width: 1.0),
-            GestureDetector(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => _CurrencyPicker(
-                    selectedIndex: _selectedIndex,
-                    currencies: widget.currencies,
-                    onSelected: (selectedIndex) {
-                      setState(() {
-                        _selectedIndex = selectedIndex;
-                        _selectedItem = widget.currencies[selectedIndex];
-                      });
-                    },
-                  ),
-                );
-              },
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                spacing: 4.0,
-                children: [
-                  Text(_selectedItem.code, style: textTheme.bodyMedium),
-                  Icon(Icons.unfold_more, color: colorScheme.outline),
-                ],
+        suffixIcon: GestureDetector(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (context) => _CurrencyPicker(
+                selectedIndex: _selectedIndex,
+                currencies: widget.currencies,
+                onSelected: (selectedIndex) {
+                  setState(() {
+                    _selectedIndex = selectedIndex;
+                    _selectedItem = widget.currencies[selectedIndex];
+                  });
+                },
               ),
-            ),
-          ],
+            );
+          },
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            spacing: 4.0,
+            children: [
+              Container(color: colorScheme.outline, height: 32.0, width: 1.0),
+              Text(_selectedItem.code, style: textTheme.bodyMedium),
+              Icon(Icons.unfold_more, color: colorScheme.outline),
+            ],
+          ),
         ),
       ),
     );
