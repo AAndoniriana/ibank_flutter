@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ibank/core/ui/components/credit_card.dart';
 import 'package:ibank/core/ui/design_system/ibank_app_bar.dart';
 import 'package:ibank/home/components/card_menu.dart';
+import 'package:ibank/transaction/transfer/transfer_screen.dart';
 
 class DashboardAppBar extends StatelessWidget implements PreferredSizeWidget {
   const DashboardAppBar({super.key});
@@ -107,13 +108,26 @@ class _DashboardState extends State<Dashboard> {
               ),
             ),
             Expanded(
-              child: GridView.count(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                crossAxisCount: 3,
-                mainAxisSpacing: 8.0,
-                crossAxisSpacing: 8.0,
-                children: menus,
+              child: GridView.builder(
+                itemCount: menus.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 8.0,
+                  crossAxisSpacing: 8.0,
+                ),
+                itemBuilder: (context, index) => GestureDetector(
+                  onTap: () {
+                    if (menus[index].destination == null) {
+                      return;
+                    }
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => menus[index].destination!,
+                      ),
+                    );
+                  },
+                  child: menus[index],
+                ),
               ),
             ),
           ],
@@ -131,6 +145,7 @@ final List<CardMenu> menus = [
   CardMenu(
     label: 'Transfer',
     icon: SvgPicture.asset('assets/icons/sync_devices.svg'),
+    destination: const TransferScreen(),
   ),
   CardMenu(
     label: 'Withdraw',

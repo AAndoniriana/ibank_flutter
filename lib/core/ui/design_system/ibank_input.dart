@@ -5,6 +5,7 @@ class IBankInput extends StatelessWidget {
     super.key,
     this.decoration = const InputDecoration(),
     this.controller,
+    this.focusNode,
     this.enabled,
     this.onChanged,
     this.onSubmitted,
@@ -14,6 +15,7 @@ class IBankInput extends StatelessWidget {
 
   final InputDecoration decoration;
   final TextEditingController? controller;
+  final FocusNode? focusNode;
   final bool? enabled;
   final void Function(String)? onChanged;
   final void Function(String)? onSubmitted;
@@ -27,6 +29,7 @@ class IBankInput extends StatelessWidget {
       borderRadius: BorderRadius.circular(20.0),
     );
     return TextField(
+      focusNode: focusNode,
       controller: controller,
       obscureText: obscureText,
       decoration: decoration.copyWith(

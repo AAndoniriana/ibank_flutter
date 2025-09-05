@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
 class CardMenu extends StatelessWidget {
-  const CardMenu({super.key, required this.label, required this.icon});
+  const CardMenu({
+    super.key,
+    required this.label,
+    required this.icon,
+    this.destination,
+  });
 
   final String label;
   final Widget icon;
+  final Widget? destination;
 
   @override
   Widget build(BuildContext context) {
