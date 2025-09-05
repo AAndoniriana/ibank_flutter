@@ -37,7 +37,7 @@ class IBankIconCard extends StatelessWidget {
                 style: theme.textTheme.labelLarge?.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.w500,
-                  fontSize: 16.0,
+                  fontSize: 14.0,
                 ),
               ),
             ],
